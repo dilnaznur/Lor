@@ -6,52 +6,6 @@ const profile = await requireAuth(["doctor", "admin"]);
 const tableBody = document.getElementById("doctorAppointmentsTable");
 const doctorNotice = document.getElementById("doctorNotice");
 
-const avatarUploadCard = document.getElementById("avatarUploadCard");
-const doctorAvatarFile = document.getElementById("doctorAvatarFile");
-const doctorAvatarUploadBtn = document.getElementById("doctorAvatarUploadBtn");
-
-function sanitizeFilename(name) {
-  return String(name || "file")
-    .replace(/[^a-zA-Z0-9._-]/g, "_")
-    .slice(0, 80);
-}
-
-async function uploadMyAvatar(file) {
-  if (!profile || profile.role !== "doctor") {
-    return;
-  }
-
-  const safeName = sanitizeFilename(file.name);
-  const path = `doctors/${profile.id}/${Date.now()}-${safeName}`;
-
-  const { error: uploadError } = await supabase
-    .storage
-    .from("avatars")
-    .upload(path, file, {
-      upsert: true,
-      contentType: file.type || "image/*"
-    });
-
-  if (uploadError) {
-    throw uploadError;
-  }
-
-  const { data } = supabase.storage.from("avatars").getPublicUrl(path);
-  const publicUrl = data?.publicUrl;
-  if (!publicUrl) {
-    throw new Error("Не удалось получить ссылку на загруженное фото");
-  }
-
-  const { error: dbError } = await supabase
-    .from("doctors")
-    .update({ avatar: publicUrl })
-    .eq("user_id", profile.id);
-
-  if (dbError) {
-    throw dbError;
-  }
-}
-
 async function getDoctorIds() {
   const { data, error } = await supabase
     .from("doctors")
@@ -69,10 +23,6 @@ async function getDoctorIds() {
 async function loadAppointments() {
   if (!profile) {
     return;
-  }
-
-  if (avatarUploadCard) {
-    avatarUploadCard.style.display = profile.role === "doctor" ? "block" : "none";
   }
 
   const doctorIds = profile.role === "admin" ? null : await getDoctorIds();
@@ -125,21 +75,6 @@ async function loadAppointments() {
     `)
     .join("");
 }
-
-doctorAvatarUploadBtn?.addEventListener("click", async () => {
-  const file = doctorAvatarFile?.files?.[0];
-  if (!file) {
-    showToast("Выберите файл");
-    return;
-  }
-
-  try {
-    await uploadMyAvatar(file);
-    showToast("Фото обновлено");
-  } catch (error) {
-    showToast(error.message || "Не удалось загрузить фото");
-  }
-});
 
 async function setStatus(id, status) {
   const { error } = await supabase

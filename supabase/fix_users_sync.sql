@@ -59,6 +59,12 @@ for all to authenticated
 using (public.is_admin())
 with check (public.is_admin());
 
+drop policy if exists "doctors update own doctor card" on public.doctors;
+create policy "doctors update own doctor card" on public.doctors
+for update to authenticated
+using (user_id = auth.uid() or public.is_admin())
+with check (user_id = auth.uid() or public.is_admin());
+
 drop policy if exists "patient reads own appointments" on public.appointments;
 create policy "patient reads own appointments" on public.appointments
 for select to authenticated
