@@ -3,6 +3,13 @@ import { supabase } from "./supabaseClient.js";
 export async function registerUser({ name, email, password, role, specialization, description, avatar }) {
   if (role === "doctor") {
     specialization = "ЛОР";
+
+    if (!description || !description.trim()) {
+      throw new Error("Для специалиста обязательно заполнить описание");
+    }
+    if (!avatar || !avatar.trim()) {
+      throw new Error("Для специалиста обязательно добавить ссылку на фото");
+    }
   }
 
   const { data: authData, error: authError } = await supabase.auth.signUp({

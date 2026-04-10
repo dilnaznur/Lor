@@ -31,10 +31,41 @@
               <th>Время</th>
               <th>Статус</th>
               <th>Действия</th>
+              <th>Отзыв</th>
             </tr>
           </thead>
           <tbody id="appointmentsTable"></tbody>
         </table>
+      </section>
+
+      <section id="reviewSection" class="card" style="margin-top:16px; display:none;">
+        <h3 style="margin-top:0;">Отзыв</h3>
+        <p class="muted" id="reviewDoctorLine" style="margin-top:0;"></p>
+
+        <form id="reviewForm" class="grid" style="gap:12px;">
+          <input type="hidden" id="reviewDoctorId">
+
+          <div class="field">
+            <label for="reviewRating">Оценка</label>
+            <select id="reviewRating" required>
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="reviewComment">Комментарий</label>
+            <textarea id="reviewComment" rows="3" placeholder="Коротко опишите впечатление"></textarea>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-primary" type="submit">Сохранить отзыв</button>
+            <button class="btn btn-secondary" type="button" id="reviewCancelBtn">Отмена</button>
+          </div>
+        </form>
       </section>
     </main>
     <script type="module" src="js/pages/dashboard.js"></script>

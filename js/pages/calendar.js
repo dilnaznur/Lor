@@ -5,6 +5,7 @@ await renderNav();
 const profile = await requireAuth(["patient", "doctor"]);
 
 const calendarRoot = document.getElementById("calendarRoot");
+const calendarNotice = document.getElementById("calendarNotice");
 
 function groupByDate(items) {
   const map = new Map();
@@ -75,6 +76,12 @@ async function loadCalendar() {
     if (error) {
       showToast(error.message);
       return;
+    }
+
+    const hasHiddenPatientData = (data || []).some((item) => !item.users?.name && !item.users?.email);
+    if (hasHiddenPatientData && calendarNotice) {
+      calendarNotice.textContent =
+        "Если у пациентов отображается '-' — данные скрыты настройками Supabase (RLS). Примените SQL-патч из supabase/fix_users_sync.sql (политика doctors can read patients for own appointments) и войдите снова.";
     }
 
     rows = (data || []).map((r) => ({

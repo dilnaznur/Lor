@@ -4,6 +4,7 @@ import { formatDate, renderNav, requireAuth, showToast, statusBadge } from "../c
 await renderNav();
 const profile = await requireAuth(["doctor", "admin"]);
 const tableBody = document.getElementById("doctorAppointmentsTable");
+const doctorNotice = document.getElementById("doctorNotice");
 
 async function getDoctorIds() {
   const { data, error } = await supabase
@@ -45,6 +46,14 @@ async function loadAppointments() {
   if (error) {
     showToast(error.message);
     return;
+  }
+
+  if (profile.role === "doctor") {
+    const hasHiddenPatientData = (data || []).some((item) => !item.users?.name && !item.users?.email);
+    if (hasHiddenPatientData && doctorNotice) {
+      doctorNotice.textContent =
+        "Имя и email пациента могут быть скрыты настройками Supabase (RLS). Если видите '-' — примените SQL-патч из supabase/fix_users_sync.sql (политика doctors can read patients for own appointments), затем выйдите и войдите снова.";
+    }
   }
 
   tableBody.innerHTML = data

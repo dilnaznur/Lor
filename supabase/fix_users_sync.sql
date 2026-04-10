@@ -1,5 +1,11 @@
 -- Run this once in Supabase SQL Editor if public.users stays empty.
 
+-- Notes:
+-- 1) Doctor seeing patient name/email depends on this policy:
+--    "doctors can read patients for own appointments" (below).
+-- 2) If you want to enforce that registered doctors MUST have description + avatar URL,
+--    apply the optional patch: supabase/doctor_required_fields.sql
+
 -- RLS recursion fix: avoid calling a function that reads public.users inside public.users policies.
 create or replace function public.is_admin()
 returns boolean

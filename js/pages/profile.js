@@ -1,5 +1,5 @@
 import { supabase } from "../supabaseClient.js";
-import { getSessionUser, renderNav, requireAuth, showToast } from "../common.js";
+import { renderNav, requireAuth, showToast } from "../common.js";
 
 await renderNav();
 const profile = await requireAuth(["patient", "doctor"]);
@@ -24,32 +24,16 @@ async function saveProfile() {
   }
 
   const nextName = (nameInput.value || "").trim();
-  const nextEmail = (emailInput.value || "").trim().toLowerCase();
 
-  if (!nextName || !nextEmail) {
-    showToast("Заполните имя и email");
+  if (!nextName) {
+    showToast("Введите имя");
     return;
   }
 
-  const currentUser = await getSessionUser();
-  if (!currentUser) {
-    showToast("Сессия не найдена");
-    return;
-  }
-
-  // 1) If email changed, update Supabase Auth email first (may require confirmation)
-  if (nextEmail !== (profile.email || "").toLowerCase()) {
-    const { error: authError } = await supabase.auth.updateUser({ email: nextEmail });
-    if (authError) {
-      showToast(authError.message);
-      return;
-    }
-  }
-
-  // 2) Update public.users row (name/email)
+  // Update public.users row (name)
   const { error: dbError } = await supabase
     .from("users")
-    .update({ name: nextName, email: nextEmail })
+    .update({ name: nextName })
     .eq("id", profile.id);
 
   if (dbError) {
