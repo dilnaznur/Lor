@@ -1,4 +1,4 @@
-import { loginUser } from "../auth.js";
+import { ensureProfileExists, loginUser } from "../auth.js";
 import { renderNav, showToast } from "../common.js";
 import { supabase } from "../supabaseClient.js";
 
@@ -16,10 +16,13 @@ form?.addEventListener("submit", async (event) => {
     await loginUser({ email, password });
 
     const { data: userData } = await supabase.auth.getUser();
-    const userId = userData.user?.id;
+    const authUser = userData.user;
+    const userId = authUser?.id;
     if (!userId) {
       throw new Error("Пользователь не найден");
     }
+
+    await ensureProfileExists(authUser);
 
     const { data: profile, error } = await supabase
       .from("users")

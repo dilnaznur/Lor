@@ -16,24 +16,29 @@ export async function registerUser({ name, email, password, role }) {
     throw authError;
   }
 
-  const userId = authData.user?.id;
-  if (!userId) {
-    throw new Error("Не удалось создать пользователя");
+  return authData;
+}
+
+export async function ensureProfileExists(user) {
+  if (!user?.id || !user?.email) {
+    throw new Error("Пользователь не найден");
   }
 
-  const { error: profileError } = await supabase.from("users").upsert({
-    id: userId,
-    name,
-    email,
+  const profilePayload = {
+    id: user.id,
+    name: user.user_metadata?.name || user.email.split("@")[0],
+    email: user.email,
     password: "auth_managed",
-    role
+    role: user.user_metadata?.role || "patient"
+  };
+
+  const { error } = await supabase.from("users").upsert(profilePayload, {
+    onConflict: "id"
   });
 
-  if (profileError) {
-    throw profileError;
+  if (error) {
+    throw error;
   }
-
-  return authData;
 }
 
 export async function loginUser({ email, password }) {
