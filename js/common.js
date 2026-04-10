@@ -44,10 +44,36 @@ export async function getCurrentProfile() {
     .from("users")
     .select("id, name, email, role")
     .eq("id", user.id)
-    .single();
+    .maybeSingle();
 
   if (error) {
     throw error;
+  }
+
+  if (!data) {
+    const fallbackProfile = {
+      id: user.id,
+      name: user.user_metadata?.name || user.email?.split("@")[0] || "User",
+      email: user.email,
+      password: "auth_managed",
+      role: user.user_metadata?.role || "patient"
+    };
+
+    const { error: upsertError } = await supabase
+      .from("users")
+      .upsert(fallbackProfile, { onConflict: "id" });
+
+    if (upsertError) {
+      console.warn("Profile auto-repair failed:", upsertError.message);
+      return null;
+    }
+
+    return {
+      id: fallbackProfile.id,
+      name: fallbackProfile.name,
+      email: fallbackProfile.email,
+      role: fallbackProfile.role
+    };
   }
 
   return data;
@@ -89,8 +115,13 @@ export async function renderNav() {
     return;
   }
 
-  const user = await getSessionUser();
-  const profile = user ? await getCurrentProfile() : null;
+  let profile = null;
+  try {
+    const user = await getSessionUser();
+    profile = user ? await getCurrentProfile() : null;
+  } catch (error) {
+    console.warn("Nav profile load failed:", error.message);
+  }
 
   const authLinks = !profile
     ? `
