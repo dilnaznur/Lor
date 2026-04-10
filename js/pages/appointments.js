@@ -36,7 +36,7 @@ async function loadAppointments() {
   }
 
   if (doctorIds && doctorIds.length === 0 && profile.role !== "admin") {
-    tableBody.innerHTML = "<tr><td colspan='7'>Ваш профиль не связан с таблицей doctors (поле user_id).</td></tr>";
+    tableBody.innerHTML = "<tr><td colspan='7'>Для этого аккаунта врача нет карточки в таблице doctors. Выполните SQL-патч синхронизации (fix_users_sync.sql) и войдите заново, либо создайте нового врача через регистрацию.</td></tr>";
     return;
   }
 

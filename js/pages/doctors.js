@@ -27,7 +27,8 @@ if (dateInput) {
 async function loadDoctors() {
   const { data, error } = await supabase
     .from("doctors")
-    .select("id, name, specialization, description, avatar")
+    .select("id, user_id, name, specialization, description, avatar")
+    .not("user_id", "is", null)
     .order("name", { ascending: true });
 
   if (error) {
@@ -36,7 +37,8 @@ async function loadDoctors() {
   }
 
   if (!data.length) {
-    doctorsGrid.innerHTML = '<div class="notice">Врачи пока не добавлены. Добавьте записи в таблицу doctors.</div>';
+    doctorsGrid.innerHTML =
+      '<div class="notice">Пока нет доступных ЛОР-врачей. Сначала зарегистрируйте аккаунт специалиста (роль doctor) — карточка врача создастся автоматически.</div>';
     return;
   }
 
