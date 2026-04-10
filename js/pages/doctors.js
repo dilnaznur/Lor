@@ -2,7 +2,7 @@ import { supabase } from "../supabaseClient.js";
 import { formatDate, renderNav, requireAuth, showToast } from "../common.js";
 
 await renderNav();
-const profile = await requireAuth(["patient", "admin", "doctor"]);
+const profile = await requireAuth(["patient"]);
 
 const doctorsGrid = document.getElementById("doctorsGrid");
 const dateInput = document.getElementById("dateInput");

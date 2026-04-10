@@ -56,10 +56,10 @@ async function saveRole(id) {
 
 document.addEventListener("click", (event) => {
   const saveButton = event.target.closest("[data-save-role]");
-  if (!saveButton) {
+  if (saveButton) {
+    saveRole(saveButton.dataset.saveRole);
     return;
   }
-  saveRole(saveButton.dataset.saveRole);
 });
 
 await loadUsers();

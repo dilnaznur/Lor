@@ -23,6 +23,8 @@ create table if not exists public.doctors (
   created_at timestamptz not null default now()
 );
 
+create unique index if not exists uniq_doctors_user_id on public.doctors(user_id);
+
 -- 4) APPOINTMENTS table
 create table if not exists public.appointments (
   id bigserial primary key,
@@ -54,6 +56,7 @@ create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
 security definer
+set search_path = public
 as $$
 begin
   insert into public.users (id, name, email, role)
@@ -67,6 +70,23 @@ begin
     name = excluded.name,
     email = excluded.email,
     role = excluded.role;
+
+  -- If the user is a doctor, create (or update) a linked doctor card.
+  if coalesce((new.raw_user_meta_data ->> 'role')::public.user_role, 'patient') = 'doctor' then
+    insert into public.doctors (user_id, name, specialization, description, avatar)
+    values (
+      new.id,
+      coalesce(new.raw_user_meta_data ->> 'name', split_part(new.email, '@', 1)),
+      coalesce(new.raw_user_meta_data ->> 'specialization', 'ЛОР'),
+      nullif(new.raw_user_meta_data ->> 'description', ''),
+      nullif(new.raw_user_meta_data ->> 'avatar', '')
+    )
+    on conflict (user_id) do update set
+      name = excluded.name,
+      specialization = excluded.specialization,
+      description = excluded.description,
+      avatar = excluded.avatar;
+  end if;
 
   return new;
 end;

@@ -4,6 +4,14 @@ import { formatDate, renderNav, requireAuth, showToast, statusBadge } from "../c
 await renderNav();
 const profile = await requireAuth(["patient", "doctor", "admin"]);
 
+if (profile?.role === "doctor") {
+  window.location.href = "appointments.html";
+}
+
+if (profile?.role === "admin") {
+  window.location.href = "admin.html";
+}
+
 const profileBlock = document.getElementById("profileBlock");
 const tableBody = document.getElementById("appointmentsTable");
 const statPending = document.getElementById("statPending");

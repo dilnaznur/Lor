@@ -12,6 +12,7 @@
 - Регистрация и авторизация через Supabase Auth
 - Роли: patient / doctor / admin
 - Просмотр карточек специалистов
+- Автоматическое создание карточки врача при регистрации (роль doctor)
 - Выбор даты и свободного времени
 - Создание записи на прием
 - Отмена записи пациентом
@@ -89,26 +90,27 @@ erDiagram
 
 Файл: `js/auth.js`, функция `registerUser`.
 
+Важно: если при регистрации выбрана роль `doctor`, дополнительно передаются поля `specialization`, `description`, `avatar` (в `user_metadata`), а триггер в БД автоматически создаёт строку в `doctors` и связывает её по `user_id`.
+
 ```js
-export async function registerUser({ name, email, password, role }) {
+export async function registerUser({
+  name,
+  email,
+  password,
+  role,
+  specialization,
+  description,
+  avatar,
+}) {
   const { data: authData, error: authError } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: { name, role, specialization, description, avatar },
+    },
   });
   if (authError) throw authError;
-
-  const userId = authData.user?.id;
-  if (!userId) throw new Error("Не удалось создать пользователя");
-
-  const { error: profileError } = await supabase.from("users").upsert({
-    id: userId,
-    name,
-    email,
-    password: "auth_managed",
-    role,
-  });
-  if (profileError) throw profileError;
-
+  if (!authData.user) throw new Error("Не удалось создать пользователя");
   return authData;
 }
 ```

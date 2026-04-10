@@ -33,6 +33,24 @@
             <option value="doctor">Специалист</option>
           </select>
         </div>
+
+        <div id="doctorFields" style="display:none;">
+          <div class="field">
+            <label for="specialization">Специализация</label>
+            <select id="specialization">
+              <option value="ЛОР">ЛОР</option>
+              <option value="Психолог">Психолог</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="description">Короткое описание</label>
+            <textarea id="description" rows="3" placeholder="Например: опыт 5 лет, консультации онлайн/офлайн"></textarea>
+          </div>
+          <div class="field">
+            <label for="avatar">Ссылка на аватар (опционально)</label>
+            <input id="avatar" type="url" placeholder="https://...">
+          </div>
+        </div>
         <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
       </form>
     </main>
