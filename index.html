@@ -17,8 +17,7 @@
         <div>
           <h1 class="fade-in">Онлайн-запись к ЛОРу за 2 минуты</h1>
           <p class="fade-in delay-1">
-            Выбирайте специалиста, свободный слот и управляйте своими визитами из личного кабинета.
-            Проект работает на frontend + Supabase.
+            Выберите врача, дату и время — и управляйте записями в личном кабинете.
           </p>
           <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;" class="fade-in delay-2">
             <a href="register.html" class="btn btn-primary">Начать</a>
@@ -27,20 +26,30 @@
         </div>
 
         <aside class="glass hero-panel fade-in delay-1">
-          <h3 style="margin-top:0;">Что реализовано</h3>
-          <div class="grid">
-            <span class="badge">Регистрация и логин</span>
-            <span class="badge">Роли: пациент / специалист / админ</span>
-            <span class="badge">Онлайн-запись и отмена</span>
-            <span class="badge">Подтверждение специалистом</span>
+          <h3 style="margin-top:0;">Как это работает</h3>
+          <div class="grid" style="gap:10px;">
+            <div class="card" style="box-shadow:none;">
+              <span class="badge">1</span>
+              <div style="margin-top:8px; font-weight:800;">Войдите или зарегистрируйтесь</div>
+              <div class="muted" style="margin-top:6px;">Доступ к личному кабинету и записям.</div>
+            </div>
+            <div class="card" style="box-shadow:none;">
+              <span class="badge">2</span>
+              <div style="margin-top:8px; font-weight:800;">Выберите ЛОР‑врача</div>
+              <div class="muted" style="margin-top:6px;">Профиль врача и описание.</div>
+            </div>
+            <div class="card" style="box-shadow:none;">
+              <span class="badge">3</span>
+              <div style="margin-top:8px; font-weight:800;">Выберите дату и время</div>
+              <div class="muted" style="margin-top:6px;">Свободные слоты подсвечиваются.</div>
+            </div>
           </div>
-          <p class="notice">SMART: проект на 1 неделю, измеримый результат - пользователь может записаться на прием.</p>
         </aside>
       </section>
     </main>
 
     <footer class="footer container">
-      Учебный проект 11 класса: запись к ЛОРу.
+      MediSlot — онлайн‑запись к ЛОРу.
     </footer>
 
     <script type="module" src="js/pages/index.js"></script>
