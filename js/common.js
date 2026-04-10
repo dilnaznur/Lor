@@ -129,9 +129,11 @@ export async function renderNav() {
       <a class="link" data-nav href="register.html">Регистрация</a>
     `
     : `
-      <a class="link" data-nav href="dashboard.html">Панель</a>
-      ${profile.role === "patient" ? '<a class="link" data-nav href="doctors.html">Специалисты</a>' : ""}
+      ${profile.role === "patient" ? '<a class="link" data-nav href="dashboard.html">Панель</a>' : ""}
       ${profile.role === "doctor" ? '<a class="link" data-nav href="appointments.html">Расписание</a>' : ""}
+      ${profile.role === "patient" ? '<a class="link" data-nav href="doctors.html">Специалисты</a>' : ""}
+      ${profile.role === "patient" || profile.role === "doctor" ? '<a class="link" data-nav href="calendar.html">Календарь</a>' : ""}
+      ${profile.role === "patient" || profile.role === "doctor" ? '<a class="link" data-nav href="profile.html">Профиль</a>' : ""}
       ${profile.role === "admin" ? '<a class="link" data-nav href="admin.html">Админ</a>' : ""}
       <button class="btn btn-secondary" id="logoutBtn">Выход</button>
     `;

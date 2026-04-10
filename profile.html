@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль | MediSlot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <nav class="nav" id="nav"></nav>
+
+    <main class="container">
+      <h1>Профиль</h1>
+      <p class="notice">Здесь можно обновить данные профиля.</p>
+
+      <form class="glass form" id="profileForm">
+        <h2 style="margin-top:0;">Данные</h2>
+
+        <div class="field">
+          <label for="nameInput">Имя</label>
+          <input id="nameInput" name="name" type="text" placeholder="Ваше имя" required>
+        </div>
+
+        <div class="field">
+          <label for="emailInput">Email</label>
+          <input id="emailInput" name="email" type="email" placeholder="name@example.com" required>
+          <div class="muted" style="font-size:0.9rem;">Если вы измените email, Supabase может запросить подтверждение.</div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-primary" type="submit">Сохранить</button>
+          <a class="btn btn-secondary" id="backLink" href="dashboard.html">Назад</a>
+        </div>
+      </form>
+    </main>
+
+    <script type="module" src="js/pages/profile.js"></script>
+  </body>
+</html>

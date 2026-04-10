@@ -126,7 +126,7 @@ a {
 
 .card {
   background: var(--surface);
-  border: 1px solid rgba(17, 94, 89, 0.1);
+  border: 1px solid rgba(157, 23, 77, 0.14);
   border-radius: var(--radius);
   padding: 16px;
   box-shadow: var(--shadow);
@@ -175,7 +175,7 @@ a {
 }
 
 .btn-secondary {
-  background: #edf3ef;
+  background: rgba(255, 255, 255, 0.86);
   color: var(--text);
 }
 
@@ -209,7 +209,7 @@ input,
 select,
 textarea {
   width: 100%;
-  border: 1px solid #c6d6ce;
+  border: 1px solid rgba(157, 23, 77, 0.22);
   border-radius: 10px;
   padding: 10px 12px;
   font: inherit;
@@ -267,14 +267,14 @@ table {
 th,
 td {
   padding: 10px;
-  border-bottom: 1px solid #e8efeb;
+  border-bottom: 1px solid rgba(157, 23, 77, 0.1);
   text-align: left;
   font-size: 0.95rem;
 }
 
 th {
-  background: #f3f8f5;
-  color: #2c4237;
+  background: #fff1f7;
+  color: var(--text);
 }
 
 .status {
@@ -299,7 +299,7 @@ th {
   height: 56px;
   border-radius: 12px;
   object-fit: cover;
-  border: 1px solid #dce8e2;
+  border: 1px solid rgba(157, 23, 77, 0.16);
 }
 
 .slot-grid {
@@ -310,8 +310,8 @@ th {
 }
 
 .slot-btn {
-  border: 1px solid #bad4c8;
-  background: #f8fcfa;
+  border: 1px solid rgba(157, 23, 77, 0.2);
+  background: rgba(255, 255, 255, 0.86);
   padding: 8px;
   border-radius: 10px;
   cursor: pointer;
@@ -319,9 +319,9 @@ th {
 }
 
 .slot-btn.selected {
-  background: #d9f2ea;
-  border-color: #65bea8;
-  color: #0b5f56;
+  background: #ffe4ef;
+  border-color: rgba(157, 23, 77, 0.4);
+  color: var(--primary-2);
 }
 
 .slot-btn.booked {
@@ -333,9 +333,9 @@ th {
   margin-top: 10px;
   padding: 10px;
   border-radius: 10px;
-  background: #f1f8f4;
-  border: 1px solid #d4e9dd;
-  color: #2b463b;
+  background: #fff1f7;
+  border: 1px solid rgba(157, 23, 77, 0.14);
+  color: var(--text);
 }
 
 .toast {
