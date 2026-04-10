@@ -1,6 +1,10 @@
 import { supabase } from "./supabaseClient.js";
 
 export async function registerUser({ name, email, password, role, specialization, description, avatar }) {
+  if (role === "doctor") {
+    specialization = "ЛОР";
+  }
+
   const { data: authData, error: authError } = await supabase.auth.signUp({
     email,
     password,

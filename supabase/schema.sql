@@ -17,7 +17,7 @@ create table if not exists public.doctors (
   id bigserial primary key,
   user_id uuid references public.users(id) on delete set null,
   name text not null,
-  specialization text not null check (specialization in ('ЛОР', 'Психолог')),
+  specialization text not null check (specialization in ('ЛОР')),
   description text,
   avatar text,
   created_at timestamptz not null default now()
@@ -171,6 +171,5 @@ for update to authenticated using (user_id = auth.uid()) with check (user_id = a
 -- Seed doctors (edit links if needed)
 insert into public.doctors (name, specialization, description, avatar)
 values
-  ('Др. Айгерим Садыкова', 'ЛОР', 'Опыт 8 лет, диагностика и лечение заболеваний уха, горла, носа.', 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300'),
-  ('Др. Мади Нургалиев', 'Психолог', 'Когнитивно-поведенческая терапия, работа со стрессом и тревогой.', 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300')
+  ('Др. Айгерим Садыкова', 'ЛОР', 'Опыт 8 лет, диагностика и лечение заболеваний уха, горла, носа.', 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300')
 on conflict do nothing;

@@ -34,9 +34,8 @@ form?.addEventListener("submit", async (event) => {
     avatar: document.getElementById("avatar")?.value?.trim()
   };
 
-  if (payload.role === "doctor" && !payload.specialization) {
-    showToast("Выберите специализацию врача");
-    return;
+  if (payload.role === "doctor") {
+    payload.specialization = "ЛОР";
   }
 
   if (payload.password.length < 6) {
