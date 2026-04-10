@@ -44,8 +44,13 @@
             <textarea id="description" rows="3" placeholder="Например: опыт 5 лет, приём взрослых и детей" required></textarea>
           </div>
           <div class="field">
-            <label for="avatar">Ссылка на фото (обязательно)</label>
-            <input id="avatar" type="url" placeholder="https://..." required>
+            <label for="avatarFile">Фото (файл с компьютера)</label>
+            <input id="avatarFile" type="file" accept="image/*">
+            <div class="muted" style="font-size:0.9rem;">Можно загрузить файл. Если включено подтверждение email, загрузка может быть доступна после входа.</div>
+          </div>
+          <div class="field">
+            <label for="avatarUrl">Или ссылка на фото (https://...)</label>
+            <input id="avatarUrl" type="url" placeholder="https://...">
           </div>
         </div>
         <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
