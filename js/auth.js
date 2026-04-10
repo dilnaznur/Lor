@@ -16,7 +16,25 @@ export async function registerUser({ name, email, password, role }) {
     throw authError;
   }
 
-  return authData;
+  if (!authData.user) {
+    throw new Error("Не удалось создать пользователя");
+  }
+
+  // If email confirmation is disabled, session is available and we can create profile immediately.
+  // If confirmation is enabled, profile will be created on first login by ensureProfileExists.
+  if (authData.session && authData.user) {
+    try {
+      await ensureProfileExists(authData.user);
+    } catch (error) {
+      // Do not fail successful signup because profile can be created on first login.
+      console.warn("Profile sync during sign up failed:", error.message);
+    }
+  }
+
+  return {
+    ...authData,
+    needsEmailConfirmation: !authData.session
+  };
 }
 
 export async function ensureProfileExists(user) {

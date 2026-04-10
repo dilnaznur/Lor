@@ -4,6 +4,11 @@ import { supabase } from "../supabaseClient.js";
 
 await renderNav();
 
+const params = new URLSearchParams(window.location.search);
+if (params.get("registered") === "1") {
+  showToast("Регистрация успешна. Выполните вход.");
+}
+
 const form = document.getElementById("loginForm");
 
 form?.addEventListener("submit", async (event) => {

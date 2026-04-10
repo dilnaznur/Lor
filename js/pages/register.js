@@ -21,9 +21,16 @@ form?.addEventListener("submit", async (event) => {
   }
 
   try {
-    await registerUser(payload);
-    showToast("Аккаунт создан. Теперь войдите.");
-    window.location.href = "login.html";
+    const result = await registerUser(payload);
+    const message = result.needsEmailConfirmation
+      ? "Аккаунт создан. Подтвердите email и войдите."
+      : "Аккаунт создан. Перенаправляем на вход.";
+
+    showToast(message);
+
+    setTimeout(() => {
+      window.location.href = "login.html?registered=1";
+    }, 700);
   } catch (error) {
     showToast(error.message || "Ошибка регистрации");
   }
