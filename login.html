@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход | MediSlot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <nav class="nav" id="nav"></nav>
+    <main class="container">
+      <form class="form card" id="loginForm">
+        <h2>Вход в систему</h2>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" required>
+        </div>
+        <div class="field">
+          <label for="password">Пароль</label>
+          <input id="password" type="password" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Войти</button>
+      </form>
+    </main>
+    <script type="module" src="js/pages/login.js"></script>
+  </body>
+</html>

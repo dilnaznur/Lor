@@ -1,0 +1,48 @@
+import { loginUser } from "../auth.js";
+import { renderNav, showToast } from "../common.js";
+import { supabase } from "../supabaseClient.js";
+
+await renderNav();
+
+const form = document.getElementById("loginForm");
+
+form?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  try {
+    await loginUser({ email, password });
+
+    const { data: userData } = await supabase.auth.getUser();
+    const userId = userData.user?.id;
+    if (!userId) {
+      throw new Error("Пользователь не найден");
+    }
+
+    const { data: profile, error } = await supabase
+      .from("users")
+      .select("role")
+      .eq("id", userId)
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    if (profile.role === "admin") {
+      window.location.href = "admin.html";
+      return;
+    }
+
+    if (profile.role === "doctor") {
+      window.location.href = "appointments.html";
+      return;
+    }
+
+    window.location.href = "dashboard.html";
+  } catch (error) {
+    showToast(error.message || "Ошибка входа");
+  }
+});

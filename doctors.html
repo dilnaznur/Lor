@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Специалисты | MediSlot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <nav class="nav" id="nav"></nav>
+    <main class="container">
+      <h1>Выбор специалиста</h1>
+      <p class="notice">ЛОР и психолог доступны для записи онлайн.</p>
+
+      <section id="doctorsGrid" class="grid cards"></section>
+
+      <section class="card" style="margin-top:20px;">
+        <h3>Выбор даты и времени</h3>
+        <div class="toolbar">
+          <div>
+            <label for="dateInput">Дата приема</label>
+            <input type="date" id="dateInput">
+          </div>
+          <button id="bookButton" class="btn btn-primary">Записаться</button>
+        </div>
+        <p id="bookingInfo" class="notice">Сначала выберите врача.</p>
+        <div id="slotGrid" class="slot-grid"></div>
+      </section>
+    </main>
+    <script type="module" src="js/pages/doctors.js"></script>
+  </body>
+</html>

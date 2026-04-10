@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediSlot | Онлайн-запись</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <nav class="nav" id="nav"></nav>
+
+    <main class="container">
+      <section class="hero">
+        <div>
+          <h1 class="fade-in">Онлайн-запись к ЛОРу и психологу за 2 минуты</h1>
+          <p class="fade-in delay-1">
+            Выбирайте специалиста, свободный слот и управляйте своими визитами из личного кабинета.
+            Проект работает на frontend + Supabase.
+          </p>
+          <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;" class="fade-in delay-2">
+            <a href="register.html" class="btn btn-primary">Начать</a>
+            <a href="doctors.html" class="btn btn-secondary">Смотреть специалистов</a>
+          </div>
+        </div>
+
+        <aside class="glass hero-panel fade-in delay-1">
+          <h3 style="margin-top:0;">Что реализовано</h3>
+          <div class="grid">
+            <span class="badge">Регистрация и логин</span>
+            <span class="badge">Роли: пациент / специалист / админ</span>
+            <span class="badge">Онлайн-запись и отмена</span>
+            <span class="badge">Подтверждение специалистом</span>
+          </div>
+          <p class="notice">SMART: проект на 1 неделю, измеримый результат - пользователь может записаться на прием.</p>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="footer container">
+      Учебный проект 11 класса: запись к ЛОРу / психологу.
+    </footer>
+
+    <script type="module" src="js/pages/index.js"></script>
+  </body>
+</html>
